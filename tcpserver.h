@@ -6,18 +6,23 @@
 #include <QTcpSocket>
 #include <QString>
 #include <QVector>
+#include "tcpserverthread.h"
 
-class TcpServer : public QObject
+class TcpServer : public QTcpServer
 {
     Q_OBJECT
 public:
     explicit TcpServer(QObject *parent = nullptr);
+    void StartServer();
+
 private:
-    QTcpServer* server;
     QVector<QString> _usersVector;
 
+protected:
+    void incomingConnection(int socketDescriptor);
+
 public slots:
-    void NewConnection();
+    // void NewConnection();
 
 signals:
 };

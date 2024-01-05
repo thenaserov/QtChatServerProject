@@ -16,6 +16,8 @@ add_executable(QtChatServerProject
   main.cpp
   tcpserver.h
   tcpserver.cpp
+  tcpserverthread.h
+  tcpserverthread.cpp
 )
 target_link_libraries(QtChatServerProject Qt${QT_VERSION_MAJOR}::Core Qt6::Network)
 

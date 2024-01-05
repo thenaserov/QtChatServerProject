@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
 
     // tcp server is instanciated here
     TcpServer server;
+    server.StartServer();
 
     return a.exec();
 }
