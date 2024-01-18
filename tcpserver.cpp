@@ -6,7 +6,7 @@ TcpServer::TcpServer(QObject *parent)
 
 void TcpServer::StartServer() {
     // control conneection status
-    if(!this->listen(QHostAddress::LocalHost ,85855)) {
+    if(!this->listen(QHostAddress::LocalHost ,40400)) {
         qDebug() << "Could not start server";
     } else {
         qDebug() << "Listening...";
