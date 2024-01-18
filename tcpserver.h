@@ -22,7 +22,6 @@ protected:
     void incomingConnection(int socketDescriptor);
 
 public slots:
-    // void NewConnection();
 
 signals:
 };
