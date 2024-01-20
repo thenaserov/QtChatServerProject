@@ -2,20 +2,22 @@
 
 TcpServer::TcpServer(QObject *parent)
     : QTcpServer{parent} {
-}
-
-void TcpServer::StartServer() {
-    // control conneection status
-    if(!this->listen(QHostAddress::LocalHost ,40400)) {
-        qDebug() << "Could not start server";
+    server = new QTcpServer(this);
+    // whenever a user connects, it will emit signal
+    connect(server, SIGNAL(newConnection()),
+            this, SLOT(newConnection()));
+    if(!server->listen(QHostAddress::LocalHost, 40400)) {
+        qDebug() << "Server could not start";
     } else {
-        qDebug() << "Listening...";
+        qDebug() << "Server started!";
     }
 }
 
-void TcpServer::incomingConnection(int socketDescriptor) {
-    qDebug() << socketDescriptor << " Connecting...";
-    TcpServerThread *thread = new TcpServerThread(socketDescriptor, this);
-    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-    thread->start();
+void TcpServer::newConnection() {
+    // need to grab the socket
+    QTcpSocket *socket = server->nextPendingConnection();
+    socket->write("Hello client\r\n");
+    socket->flush();
+    socket->waitForBytesWritten(3000);
+    socket->close();
 }

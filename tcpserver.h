@@ -4,24 +4,21 @@
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
-#include <QString>
-#include <QVector>
-#include "tcpserverthread.h"
+#include <QDebug>
 
 class TcpServer : public QTcpServer
 {
     Q_OBJECT
 public:
     explicit TcpServer(QObject *parent = nullptr);
-    void StartServer();
 
 private:
-    QVector<QString> _usersVector;
+    QTcpServer *server;
 
 protected:
-    void incomingConnection(int socketDescriptor);
 
 public slots:
+    void newConnection();
 
 signals:
 };
